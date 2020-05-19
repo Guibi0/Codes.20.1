@@ -1,0 +1,7 @@
+As duas mensagens a seguir foram interceptadas. Sabe-se que seus autores são membros da frente de Engenharia Reversa do Ganesh e suspeita-se que ambas foram encriptadas com a mesma chave...
+
+0c0007fee5af4fbf589f043167808fc2bb7bf731f3803e5888ee69acad5c804d4c9ec541385918c92c744cf1d9878e657e8b39848a9ae89188c01a0e996e457d
+
+0e0f0efef8af0ea859de510e229198c5b875f730e5d42e449dab68ffaa46ce484a92ca443a1c13d063274df9dfd5c778728c6d978ac8e48cc78f0d0ed86f457b3aecac691056cd78
+
+A flag é o texto contido entre parênteses.
