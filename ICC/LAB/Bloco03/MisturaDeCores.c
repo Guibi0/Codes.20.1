@@ -39,6 +39,7 @@ void imprimePaleta(int **paleta) {
     }
 }
 
+//Funação principal
 int main() {
 
     //Recebe as cores a serem misturadas e a posição da mistura resultante
