@@ -54,7 +54,7 @@ int main() {
     printf("Start:\n");
     imprimePaleta(paleta);
 
-    //Mistura as cores
+    //Mistura as coresaaa
     for (int j = 0; j < 3; j++) paleta[posMistura][j] += paleta[cor1][j] / 2 + paleta[cor2][j] / 2;
     
     //Imprime o estado final da paleta

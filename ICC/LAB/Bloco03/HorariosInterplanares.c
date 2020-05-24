@@ -30,7 +30,7 @@ typedef struct{
     int segundos;
 }Tempo;
 
-//>Função que recebe uma string, incluindo espaços
+//>Função que recebe uma string, incluindo os espaços
 //>Parâmetros: 
 //  -Não há parâmetros
 //>Retorno: 

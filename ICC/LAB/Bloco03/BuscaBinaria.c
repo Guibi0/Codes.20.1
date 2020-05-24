@@ -16,7 +16,7 @@
 #define NAO 0
 #define AUSENTE -1
 
-//Função que recebe inteiros para um vetor
+//Função que recebe inteiros para preencher um vetor
 //Parâmetros:
 //	-um ponteiro que endereça o vetor
 //  -um inteiro com o tamanho do vetor
