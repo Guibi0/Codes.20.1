@@ -64,7 +64,7 @@ char *recebeNome() {
 //>Função que realiza os cálculos do programa
 //>Parâmetros:
 //  -Um long int com a quantidade total de tempo em segundos
-//  -Uma string com o nome do planeta que será o parâmetro
+//  -Um ponteiro que endereça a string com o nome do planeta que será o parâmetro
 //>Retorno:
 //  -Uma struct do tipo Tempo com os dados do tempo convertido
 Tempo converteTempo(long int tempoSeg, char *planeta) {

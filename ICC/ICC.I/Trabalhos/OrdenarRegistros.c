@@ -73,7 +73,7 @@ Dados organizaLinha(char *linha, Dados objeto) {
 	objeto.numero = 0;
 
 	//Garante que a converção se inicie no final do numero 
-	while(linha[i] < '0' || linha[i] > '9' ) i--;
+	while (linha[i] < '0' || linha[i] > '9' ) i--;
 
 	while (linha[i] != ' ') {
 		
@@ -183,7 +183,7 @@ Lista ordenaRegistros(Lista registros, int escolha) {
 
 			inicio++;
 			fim--;
-		}while(ordenado == NAO);
+		}while (ordenado == NAO);
 
 	}else if (escolha == 2) {
 		//Cocktail sort que ordena de acordo com o número de cada objeto registrado
@@ -220,7 +220,7 @@ Lista ordenaRegistros(Lista registros, int escolha) {
 
 			inicio++;
 			fim--;
-		}while(ordenado == NAO);
+		}while (ordenado == NAO);
 	}
 
 	return registros;
