@@ -41,7 +41,7 @@ typedef struct {
 // >Parâmetros: 
 //	 -não há parâmetro
 // >Retorno: 
-//	 -um ponteiro que endereça a string
+//	 -ponteiro que endereça a string
 char *recebeNome() {
     char *string = (char *) malloc(TAMANHOINICIAL * sizeof(char));
     int tamanho = TAMANHOINICIAL;
@@ -72,8 +72,9 @@ char *recebeNome() {
 
 // >Função que organiza o acervo da biblioteca
 // >Parâmetros: 
-//	 -um int com a quantidade de livros
-// >Retorno: um ponteiro endereçando a lista de livros do acervo 
+//	 -int com a quantidade de livros
+// >Retorno: 
+//	 -ponteiro endereçando a lista de livros do acervo 
 Dados *criaAcervo(int qtdaLivros) {
 
 	Dados *obras = (Dados *) malloc(qtdaLivros * sizeof(Dados)); 
@@ -96,7 +97,7 @@ Dados *criaAcervo(int qtdaLivros) {
 
 // >Função que realiza o aluguel de um livro
 // >Parâmetros: 
-//	 -uma struct com o dados atuais da biblioteca
+//	 -struct com o dados atuais da biblioteca
 // >Retorno: 
 //	 -a struct atualizada
 Biblioteca alugarLivro(Biblioteca biblio) {
@@ -146,7 +147,7 @@ Biblioteca alugarLivro(Biblioteca biblio) {
 
 // >Função que mostra a lista ordenada de livros alugados caso essa exista
 // >Parâmetros: 
-//	 -uma struct com os dados dos livros alugados
+//	 -struct com os dados dos livros alugados
 // >Retorno: 
 // 	 -não há retorno
 void mostrarAlugados(Lista alugados) {
@@ -164,7 +165,7 @@ void mostrarAlugados(Lista alugados) {
 
 // >Função que realiza a devolução de um livro caso esse esteja alugado
 // >Parâmetros: 
-// 	 -uma struct com o dados atuais da biblioteca
+// 	 -struct com o dados atuais da biblioteca
 // >Retorno: 
 // 	 -a struct atualizada
 Biblioteca devolverLivro(Biblioteca biblio) {
@@ -223,12 +224,12 @@ Biblioteca devolverLivro(Biblioteca biblio) {
 
 // >Função fecha o programa e desaloca memória HEAP utilizada
 // >Parâmetros: 
-// 	 -uma struct com todos os dados atuais da biblioteca
+// 	 -struct com todos os dados atuais da biblioteca
 // >Retorno: 
 //	 -não há retorno
 void saiEDesaloca(Biblioteca biblio) {
 
-	// Printa "despedida"
+	// Imprime "despedida"
 	printf("Programa finalizado\n");
 
 	// Desaloca as strings com os nomes dos todos os livros

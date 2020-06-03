@@ -110,11 +110,11 @@ char *adcionaPalavraNova(char *palavra, char *frase, int posF, int tam) {
 
 //>Função que troca strings em uma frase
 //>Parâmetros: 
-//   -um ponteiros enderençando a frase 
-//   -um ponteiros enderençando a palavra antiga
-//   -um ponteiros enderençando a palavra nova
+//   -ponteiros enderençando a frase 
+//   -ponteiros enderençando a palavra antiga
+//   -ponteiros enderençando a palavra nova
 //>Retorno: 
-//   -um ponteiro com a nova frase
+//   -ponteiro com a nova frase
 char *trocaString(char *pAntiga, char *pNova, char *fAntiga) {
     
     //Declara string que receberá a nova frase

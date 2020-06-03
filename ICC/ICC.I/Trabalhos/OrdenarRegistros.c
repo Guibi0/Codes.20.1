@@ -35,7 +35,7 @@ typedef struct {
 // >Parâmetros: 
 //	 -não há parâmetros
 // >Retorno: 
-//	 -um ponteiro que endereça a string
+//	 -ponteiro que endereça a string
 char *recebeLinha() {
     char *string = (char *) malloc(TAMANHOINICIAL * sizeof(char));
     int tamanho = TAMANHOINICIAL;
@@ -66,8 +66,8 @@ char *recebeLinha() {
 
 // >Função que coloca cada parte da linha de entrada no seu devido lugar
 // >Parâmetros: 
-//	 -um ponteiro endereçando a linha de entrada
-//	 -uma struct que guardará os dados de entrada de forma organizada
+//	 -ponteiro endereçando a linha de entrada
+//	 -struct que guardará os dados de entrada de forma organizada
 // >Retorno: 
 //	 -a struct com os dados
 Dados organizaLinha(char *linha, Dados objeto) {
@@ -108,7 +108,7 @@ Dados organizaLinha(char *linha, Dados objeto) {
 // >Parâmetros: 
 //	 -não há parâmetros
 // >Retorno: 
-//	 -uma struct com a lista de registros
+//	 -struct com a lista de registros
 Lista criaRegistros() {
 	Lista registros;  
 	registros.objetos = (Dados *) malloc(QTDAINICIAL * sizeof(Dados));
@@ -152,7 +152,7 @@ int comparaNumeros(const void *a, const void *b){
 
 // >Função que imprime os registros já ordenados
 // >Parâmetros: 
-//	 -uma struct com os dados registrados
+//	 -struct com os dados registrados
 // >Retorno: 
 //	 -não há retorno
 void imprimeRegistros(Lista registros) {
