@@ -222,7 +222,7 @@ Biblioteca devolverLivro(Biblioteca biblio) {
 // >Parâmetros: 
 // 	 -uma struct com todos os dados atuais da biblioteca
 // >Retorno: 
-//	 -não há retornos
+//	 -não há retorno
 void saiEDesaloca(Biblioteca biblio) {
 
 	// Printa "despedida"
