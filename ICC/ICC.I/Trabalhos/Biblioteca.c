@@ -145,7 +145,7 @@ Biblioteca alugarLivro(Biblioteca biblio) {
 // >Parâmetros: 
 //	 -uma struct com os dados dos livros alugados
 // >Retorno: 
-// 	 -não há retornos
+// 	 -não há retorno
 void mostrarAlugados(Lista alugados) {
 
 	if (alugados.qtda == 0) printf("Voce nao tem livros alugados\n");
