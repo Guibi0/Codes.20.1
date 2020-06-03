@@ -36,7 +36,7 @@ typedef struct {
 
 // >Função que recebe uma string, incluindo espaços
 // >Parâmetros: 
-//	 -não há parâmetros
+//	 -não há parâmetro
 // >Retorno: 
 //	 -um ponteiro que endereça a string
 char *recebeNome() {
