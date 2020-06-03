@@ -94,8 +94,12 @@ char *adciona_palavra_nova(char *palavra, char *frase, int pos_f, int tam) {
 }
 
 //>Função que troca strings em uma frase
-//>Parâmetros: 3 ponteiros, enderençando a frase e as palavras a serem trocadas
-//>Retorno: 1 ponteiro com a nova frase
+//>Parâmetros: 
+//   -um ponteiros enderençando a frase 
+//   -um ponteiros enderençando a palavra antiga
+//   -um ponteiros enderençando a palavra nova
+//>Retorno: 
+//   -um ponteiro com a nova frase
 char *troca_string(char *p_antiga, char *p_nova, char *f_antiga) {
     
     //Declara string que receberá a nova frase
