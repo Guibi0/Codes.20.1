@@ -95,7 +95,7 @@ Dados *criaAcervo(int qtdaLivros) {
 // >Parâmetros: 
 //	 -uma struct com o dados atuais da biblioteca
 // >Retorno: 
-//	 -a struct atualizadafg
+//	 -a struct atualizada
 Biblioteca alugarLivro(Biblioteca biblio) {
 	
 	// Recebe o livro procurado
