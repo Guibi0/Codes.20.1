@@ -12,8 +12,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#define sim 1
-#define nao 0
+#define SIM 1
+#define NAO 0
 
 //>Função que recebe uma string, incluindo espaços
 //>Parâmetros: não há parâmetros
@@ -49,24 +49,24 @@ char *recebe_string() {
 //>Retorno: um int com a situação com a relação a presença
 int confere_presenca(char *palavra, int pos_p, char *frase, int pos_f) {
 
-	int resultado = sim;
+	int resultado = SIM;
 	//Analisa char a char até o fim da palavra
-	while (palavra[pos_p] != '\0' && resultado == sim) {
+	while (palavra[pos_p] != '\0' && resultado == SIM) {
 
-		if (palavra[pos_p] != frase[pos_f]) resultado = nao;
+		if (palavra[pos_p] != frase[pos_f]) resultado = NAO;
 		
 		pos_f++; 
 		pos_p++;
 	}
 
 	//Analisa o char seguinte a palavra não é uma letra
-	if (resultado == sim) {	
-		resultado = nao;
+	if (resultado == SIM) {	
+		resultado = NAO;
 
 		//Espaço, '\0', e pontuações
 		char validos[] = {' ', '\0', ',', '.', '!', ';', ':', '?', '(', ')'};
-		for (int i = 0; i < 11 && resultado == nao; i++) {
-			if (frase[pos_f] == validos[i]) resultado = sim;
+		for (int i = 0; i < 11 && resultado == NAO; i++) {
+			if (frase[pos_f] == validos[i]) resultado = SIM;
 		}
 	}
 
@@ -114,7 +114,7 @@ char *troca_string(char *p_antiga, char *p_nova, char *f_antiga) {
         }
 
         //Detecta presença da palavra antiga
-        int p_presente = nao;
+        int p_presente = NAO;
         if (f_antiga[fa] == p_antiga[0]) {
         	if (fa == 0 || f_antiga[fa - 1] == ' ') {
         		p_presente = confere_presenca(p_antiga, 0, f_antiga, fa);
@@ -122,7 +122,7 @@ char *troca_string(char *p_antiga, char *p_nova, char *f_antiga) {
         }
         
         //Escreve a palavra nova caso necessário
-        if (p_presente == sim) {
+        if (p_presente == SIM) {
         	f_nova = adciona_palavra_nova(p_nova, f_nova, fn, tamanho);
         	
         	fa += strlen(p_antiga);
