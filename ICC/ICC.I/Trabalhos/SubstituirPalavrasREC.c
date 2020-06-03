@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
 #define SIM 1
 #define NAO 0
 
@@ -19,7 +20,7 @@
 // >Parâmetros: 
 //   -não há parâmetros
 // >Retorno: 
-//   -um ponteiro que endereça a string
+//   -ponteiro que endereça a string
 char *recebeString() {
     char *string = (char *) malloc(TAMANHOINICIAL * sizeof(char));
     int tamanho = TAMANHOINICIAL;
@@ -48,55 +49,61 @@ char *recebeString() {
     return string;
 }
 
-
 //>Função que confere se a existe uma palavra em um pedaço da frase 
-//>Parâmetros: 2 ponteiros, um para a palavra outro para frase, e 2 ints com as 
-//posições para o início da analise 		
-//>Retorno: um int com a situação com a relação a presença
-int confere_presenca(char *palavra, int pos_p, char *frase, int pos_f) {
+//>Parâmetros: 
+//  -ponteiro um para a palavra procurada
+//  -int com a posição inicial na palavra
+//  -ponteiro um para a frase onde ocerrerá a conferência
+//>Retorno: 
+//   -int com a situação com a relação a presença
+int conferePresenca(char *palavra, int posP, char *frase, int posF) {
 
-	int resultado = SIM;
-	//Analisa char a char até o fim da palavra
-	while (palavra[pos_p] != '\0' && resultado == SIM) {
+    int resultado = SIM;
+    //Analisa char a char até o fim da palavra
+    while (palavra[posP] != '\0' && resultado == SIM) {
 
-		if (palavra[pos_p] != frase[pos_f]) resultado = NAO;
-		
-		pos_f++; 
-		pos_p++;
-	}
+        if (palavra[posP] != frase[posF]) resultado = NAO;
+        
+        posF++; 
+        posP++;
+    }
 
-	//Analisa o char seguinte a palavra não é uma letra
-	if (resultado == SIM) {	
-		resultado = NAO;
+    //Analisa o char seguinte a palavra não é uma letra
+    if (resultado == SIM) { 
+        resultado = NAO;
 
-		//Espaço, '\0', e pontuações
-		char validos[] = {' ', '\0', ',', '.', '!', ';', ':', '?', '(', ')'};
-		for (int i = 0; i < 11 && resultado == NAO; i++) {
-			if (frase[pos_f] == validos[i]) resultado = SIM;
-		}
-	}
+        //Espaço, '\0', e pontuações
+        char validos[] = {' ', '\0', ',', '.', '!', ';', ':', '?', '(', ')'};
+        for (int i = 0; i < 11 && resultado == NAO; i++) {
+            if (frase[posF] == validos[i]) resultado = SIM;
+        }
+    }
 
-	return resultado;
+    return resultado;
 }
 
 //>Função que escreve a nova palavra na frase modificada
-//>Parâmetros: 2 ponteiros, para a palavra e para frase, e 2 ints, com a posição 
-//inicial da escrita e tamanho atual da frase
-//>Retorno: um ponteiro com frase modificada
-char *adciona_palavra_nova(char *palavra, char *frase, int pos_f, int tam) {
+//>Parâmetros: 
+//  -ponteiro um para a palavra que sera adicionada
+//  -ponteiro um para a frase onde ocerrerá a adição
+//  -int com a posição de partida na frase
+//  -int com a tamanho atual da frase
+//>Retorno: 
+//  -ponteiro com frase modificada
+char *adcionaPalavraNova(char *palavra, char *frase, int posF, int tam) {
 
-  	for (int i = 0; palavra[i] != '\0'; i++, pos_f++) {
-    	//Realoca a string em um espaço maior caso necessário
-        if (pos_f == tam) {
-        	frase = (char *) realloc(frase, 2 * tam * sizeof(char));
-        	tam *= 2;
+    for (int i = 0; palavra[i] != '\0'; i++, posF++) {
+        //Realoca a string em um espaço maior caso necessário
+        if (posF == tam) {
+            frase = (char *) realloc(frase, 2 * tam * sizeof(char));
+            tam *= 2;
         }
 
         //Escreve caracter por caracter
-        frase[pos_f] = palavra[i];
-    }	
+        frase[posF] = palavra[i];
+    }   
 
-	return frase;
+    return frase;
 }
 
 //>Função que troca strings em uma frase
@@ -106,68 +113,68 @@ char *adciona_palavra_nova(char *palavra, char *frase, int pos_f, int tam) {
 //   -um ponteiros enderençando a palavra nova
 //>Retorno: 
 //   -um ponteiro com a nova frase
-char *troca_string(char *p_antiga, char *p_nova, char *f_antiga) {
+char *trocaString(char *pAntiga, char *pNova, char *fAntiga) {
     
     //Declara string que receberá a nova frase
-    char *f_nova = (char *) malloc(50 * sizeof(char));
+    char *fNova = (char *) malloc(50 * sizeof(char));
     int tamanho = 50;
      
     //Cria a nova string
     int fa = 0;
     int fn = 0;
-    while (f_antiga[fa] != '\0') {
+    while (fAntiga[fa] != '\0') {
 
-    	//Realoca a string em um espaço maior caso necessário
+        //Realoca a string em um espaço maior caso necessário
         if (fa == tamanho) {
-        	f_nova = (char *) realloc(f_nova, 2 * tamanho * sizeof(char));
-        	tamanho *= 2;
+            fNova = (char *) realloc(fNova, 2 * tamanho * sizeof(char));
+            tamanho *= 2;
         }
 
         //Detecta presença da palavra antiga
-        int p_presente = NAO;
-        if (f_antiga[fa] == p_antiga[0]) {
-        	if (fa == 0 || f_antiga[fa - 1] == ' ') {
-        		p_presente = confere_presenca(p_antiga, 0, f_antiga, fa);
-        	}
+        int pPresente = NAO;
+        if (fAntiga[fa] == pAntiga[0]) {
+            if (fa == 0 || fAntiga[fa - 1] == ' ') {
+                pPresente = conferePresenca(pAntiga, 0, fAntiga, fa);
+            }
         }
         
         //Escreve a palavra nova caso necessário
-        if (p_presente == SIM) {
-        	f_nova = adciona_palavra_nova(p_nova, f_nova, fn, tamanho);
-        	
-        	fa += strlen(p_antiga);
-        	fn += strlen(p_nova);
+        if (pPresente == SIM) {
+            fNova = adcionaPalavraNova(pNova, fNova, fn, tamanho);
+            
+            fa += strlen(pAntiga);
+            fn += strlen(pNova);
         }else {
-        	f_nova[fn] = f_antiga[fa];
+            fNova[fn] = fAntiga[fa];
 
-        	fa++;
-        	fn++;
+            fa++;
+            fn++;
         }
     }
     //Fecha a string
-	f_nova[fn] = '\0';
-  	f_nova = realloc(f_nova, (fn + 1) * sizeof(char));
+    fNova[fn] = '\0';
+    fNova = realloc(fNova, (fn + 1) * sizeof(char));
 
-    return f_nova;
+    return fNova;
 }
 
 //Funçãon principal
 int main() {
 
-	//Recebe as palavras e a frase 
-	char *palavra_antiga = recebeString();
-	char *nova_palavra = recebeString();
-	char *frase_antiga = recebeString();
+    //Recebe as palavras e a frase 
+    char *palavraAntiga = recebeString();
+    char *novaPalavra = recebeString();
+    char *fraseAntiga = recebeString();
 
-	//Troca a palavra nova pela antiga, caso a primeira conste na frase
-	char *nova_frase = troca_string(palavra_antiga, nova_palavra, frase_antiga);
+    //Troca a palavra nova pela antiga, caso a primeira conste na frase
+    char *novaFrase = trocaString(palavraAntiga, novaPalavra, fraseAntiga);
 
-	//Imprime a nova frase
-	printf("%s\n", nova_frase);
+    //Imprime a nova frase
+    printf("%s\n", novaFrase);
 
-	free(palavra_antiga);
-	free(nova_palavra);
-	free(frase_antiga);
-	free(nova_frase);
-	return 0;
+    free(palavraAntiga);
+    free(novaPalavra);
+    free(fraseAntiga);
+    free(novaFrase);
+    return 0;
 }
