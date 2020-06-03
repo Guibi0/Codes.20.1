@@ -15,33 +15,39 @@
 #define SIM 1
 #define NAO 0
 
-//>Função que recebe uma string, incluindo espaços
-//>Parâmetros: não há parâmetros
-//>Retorno: um ponteiro que endereça a string
-char *recebe_string() {
-    
-    char *string = (char *) malloc(8 * sizeof(char));
-    int tamanho = 8;
+// >Função que recebe uma string, incluindo espaços
+// >Parâmetros: 
+//   -não há parâmetros
+// >Retorno: 
+//   -um ponteiro que endereça a string
+char *recebeString() {
+    char *string = (char *) malloc(TAMANHOINICIAL * sizeof(char));
+    int tamanho = TAMANHOINICIAL;
      
-    //Lê a string
+    // Lê a string
     int i = 0;
     do {
-        //Realoca a string em um espaço maior caso necessário
+        // Realoca a string em um espaço maior caso necessário
         if (i == tamanho) {
-        	string = (char *) realloc(string, 2 * tamanho * sizeof(char));
-        	tamanho *= 2;
+            tamanho *= 2;
+            string = (char *) realloc(string, tamanho * sizeof(char));
         }
-    	
-    	//Recebe caracter por caracter
+        
+        // Recebe caracter por caracter
         string[i] = fgetc(stdin);
-        i++;
 
+        // Lê o '\n' pós '\r'
+        if(string[i] == '\r') string[i] = fgetc(stdin);
+
+        i++;
     }while (string[i - 1] != '\n' && string[i - 1] != EOF);
+
     string[i - 1] = '\0';
     string = (char *) realloc(string, i * sizeof(char));
 
     return string;
 }
+
 
 //>Função que confere se a existe uma palavra em um pedaço da frase 
 //>Parâmetros: 2 ponteiros, um para a palavra outro para frase, e 2 ints com as 
@@ -149,9 +155,9 @@ char *troca_string(char *p_antiga, char *p_nova, char *f_antiga) {
 int main() {
 
 	//Recebe as palavras e a frase 
-	char *palavra_antiga = recebe_string();
-	char *nova_palavra = recebe_string();
-	char *frase_antiga = recebe_string();
+	char *palavra_antiga = recebeString();
+	char *nova_palavra = recebeString();
+	char *frase_antiga = recebeString();
 
 	//Troca a palavra nova pela antiga, caso a primeira conste na frase
 	char *nova_frase = troca_string(palavra_antiga, nova_palavra, frase_antiga);
