@@ -15,6 +15,8 @@
 
 #define SIM 1
 #define NAO 0
+#define QTDAINICIAL 100
+#define TAMANHOINICIAL 100
 
 // >Função que recebe uma string, incluindo espaços
 // >Parâmetros: 
