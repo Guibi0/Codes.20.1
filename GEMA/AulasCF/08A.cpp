@@ -32,7 +32,7 @@ int main() {
 		visitando = aVisitar[aVisitar.size()-1];
 		aVisitar.pop_back();
 
-		it = find(visitados.begin(), visitados.end(), visitando);
+		auto it = find(visitados.begin(), visitados.end(), visitando);
 		if (it != visitados.end()) continue;
 		
 		visitados.pushB(visitando);
