@@ -39,6 +39,12 @@ int main() {
 		else ini[ad.s].pushB(ad.f); 
 	}
 
+	for (int i = 1; i < n; i++) {
+		cout << i << "->";
+		for (int j = 0; j < ini[i].size(); j++) cout << ini[i][j] << " "; 
+		cout << endl;
+	}
+
 	vector<int> aVisitar(1, 1);
 	vector<int> visitados(100000 - 1, 0);
 	int visitando, cicle = 0;
