@@ -10,24 +10,28 @@ using namespace std;
 
 int n, m;
 int qtdG0 = 0, qtdG1 = 0;
-bool cicle = false;
 vector<vector<int>> inimizades(100001);
 vector<vector<bool>> grupo(2, vector<bool>(100001, false));
 
-vector<bool> passado(100001, false);
-vector<int> futuro;
 int func() {
 
 	int resp;
-	int g = 0;
-	grupo[g][1] = true;
-	futuro.pushB(1);
 	
-	int presente;
-	while(futuro.size()) {
+	int vertice = 1;
+	int g = 0;
+	grupo[g][vertice] = true;
+	while(m) {
 
-		presente = futuro[0];
+		if (inimizades[vertice].size()) {
+			if(!(grupo[0][vertice] + grupo[1][vertice])) grupo[0][vertice] = true;
+		}
+		
+		cout << "\nentrando na função para o vértice >" << vertice << endl;
 
+		for(int i = 0; i < inimizades[vertice].size(); i++) {
+			if (grupo[0][vertice]) grupo[1][inimizades[vertice][i]] = true, m--;
+			if (grupo[1][vertice]) grupo[0][inimizades[vertice][i]] = true, m--;
+		}
 		cout << "\ngrupo 0 ta assim >>";
 		for (int i = 1; i <= n; i++) {
 			cout << grupo[0][i] << " ";
@@ -39,43 +43,20 @@ int func() {
 			cout << grupo[1][i] << " ";
 		}
 		cout << endl;
-		cout << "\nentrando na função para o vértice > " << presente << endl; 
-		futuro.erase(futuro.begin());
 
-		if (grupo[0][presente]) g = 1;
-		else g = 0;
-
-		if (passado[presente]) {
-			cicle = true; 
-			break;
-		}
-
-		passado[presente] = true;
-
-		for(int i = 0; i < inimizades[presente].size(); i++) {
-			grupo[g][inimizades[presente][i]] = true;
-			
-			if (!passado[inimizades[presente][i]]) {
-				auto it = find(futuro.begin(), futuro.end(), inimizades[presente][i]);
-				if (it == futuro.end()) futuro.pushB(inimizades[presente][i]);
-			}
-		}
+		vertice++;
 	}
 
-	if (cicle) return -1;
-	else {
+	for (int i = 1; i <= n; i++) {
 
-		int isentoes = 0;
-		for (int i = 1; i <= n; i++) {
-			if (!(grupo[0][i] + grupo[1][i])) isentoes++;
+		if(grupo[0][i] & grupo[1][i]) return -1;
 
-			qtdG0 += grupo[0][i];
-			qtdG1 += grupo[1][i];
-		} 
+		qtdG0 += grupo[0][i];
+		qtdG1 += grupo[1][i];
+	} 
 
-		if (qtdG0 >= qtdG1) return qtdG0 + isentoes;
-		else return qtdG1 + isentoes;
-	}
+	if (qtdG0 < qtdG1) return n - qtdG0;
+	else return n - qtdG1;
 }
 
 int main() {
@@ -87,12 +68,22 @@ int main() {
 
 		cin >> ini.f >> ini.s;
 
-		inimizades[ini.f].pushB(ini.s); 
-		inimizades[ini.s].pushB(ini.f); 
+		if(ini.f < ini.s) inimizades[ini.f].pushB(ini.s); 
+		else inimizades[ini.s].pushB(ini.f); 
 	}
-	
-	int resp = func();
 
-	cout << resp << endl;
+	for (int i = 1; i <= n; i++){
+		cout << i << "->";
+		for(int j = 0; j < inimizades[i].size(); j++){
+			cout << inimizades[i][j] << " ";
+		}
+		cout << endl;
+	}	
+
+	if (!m) cout << n - 1 << "\n";
+	else {
+		cout << func() << endl;
+	}
+
 	return 0;
 }
