@@ -24,6 +24,6 @@ int main() {
 		i--;
 	}
 	
-	cout << resp << endl;
+	cout << resp << "\n";
 	return 0;
 }	

@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef long long int ll;
 #define f first
 #define s second
 #define popB pop_back
@@ -8,25 +9,40 @@ using namespace std;
 #define lowB lower_bound
 #define upperB upper_bound
 
+const int mod = 1e9 + 7;
+
 int n, k;
-vector<int> p(1000000, 0);
+vector<int> qtd(1000001, 0);
+vector<ll> primos;
 
 int main() {
 	
-	cin >> n >> k >> endl;
+	cin >> n >> k;
 
-	int primo;
+	ll p;
 	for(int i = 0; i < n; i++) {
-		cin >> primo;	
-		p[primo]++;
+		
+		cin >> p;	
+		if (!qtd[p]) primos.pushB(p);
+		qtd[p]++;
 	}
+
+	sort(primos.begin(), primos.end());
 	
-	int resp = 0;
+	ll resp = 1;
+	int i = 0;
 	while (k != 0) {
+		if(qtd[primos[i]]) {
+			resp *= primos[i];
+			resp %= mod;
+			qtd[primos[i]]--; 
+			k--;
+		}
 
-
+		i++;
+		if(i == primos.size()) i = 0;
 	}
 
-	cout << resp % (1000000000 + 7)<< endl;
+	cout << resp % mod << "\n";
 	return 0;
 }

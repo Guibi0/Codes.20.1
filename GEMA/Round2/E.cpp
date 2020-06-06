@@ -9,20 +9,72 @@ using namespace std;
 #define upperB upper_bound
 
 int n, m;
-vector<vector<int>> ini(100000);
-vector<int> g(2);
+int qtdG0 = 0, qtdG1 = 0;
+bool cicle = false;
+vector<vector<int>> inimizades(100001);
+vector<vector<bool>> grupo(2, vector<bool>(100001, false));
 
-int func(int a, int grupo) {
+vector<bool> passado(100001, false);
+vector<int> futuro;
+int func() {
 
-	if (a == n) {
-		if (g[0] > g[1]) return g[0];
-		else return g[1];
-	}else {
+	int resp;
+	int g = 0;
+	grupo[g][1] = true;
+	futuro.pushB(1);
+	
+	int presente;
+	while(futuro.size()) {
+
+		presente = futuro[0];
+
+		cout << "\ngrupo 0 ta assim >>";
+		for (int i = 1; i <= n; i++) {
+			cout << grupo[0][i] << " ";
+		}
+		cout << endl;
 		
-	g[grupo] += ini[a].size();
-	grupo++;
+		cout << "grupo 1 ta assim >>";
+		for (int i = 1; i <= n; i++) {
+			cout << grupo[1][i] << " ";
+		}
+		cout << endl;
+		cout << "\nentrando na função para o vértice > " << presente << endl; 
+		futuro.erase(futuro.begin());
 
-	for (int i = 0; i < ini[a].size(); i++) return func(ini[a][i], grupo % 2);
+		if (grupo[0][presente]) g = 1;
+		else g = 0;
+
+		if (passado[presente]) {
+			cicle = true; 
+			break;
+		}
+
+		passado[presente] = true;
+
+		for(int i = 0; i < inimizades[presente].size(); i++) {
+			grupo[g][inimizades[presente][i]] = true;
+			
+			if (!passado[inimizades[presente][i]]) {
+				auto it = find(futuro.begin(), futuro.end(), inimizades[presente][i]);
+				if (it == futuro.end()) futuro.pushB(inimizades[presente][i]);
+			}
+		}
+	}
+
+	if (cicle) return -1;
+	else {
+
+		int isentoes = 0;
+		for (int i = 1; i <= n; i++) {
+			if (!(grupo[0][i] + grupo[1][i])) isentoes++;
+
+			qtdG0 += grupo[0][i];
+			qtdG1 += grupo[1][i];
+		} 
+
+		if (qtdG0 >= qtdG1) return qtdG0 + isentoes;
+		else return qtdG1 + isentoes;
 	}
 }
 
@@ -30,42 +82,16 @@ int main() {
 	
 	cin >> n >> m;
 
-	pair<int, int> ad;
+	pair<int, int> ini;
 	for(int i = 1; i <= m; i++) {
 
-		cin >> ad.f >> ad.s;
+		cin >> ini.f >> ini.s;
 
-		if (ad.f < ad.s) ini[ad.f].pushB(ad.s); 
-		else ini[ad.s].pushB(ad.f); 
-	}
-
-	for (int i = 1; i < n; i++) {
-		cout << i << "->";
-		for (int j = 0; j < ini[i].size(); j++) cout << ini[i][j] << " "; 
-		cout << endl;
-	}
-
-	vector<int> aVisitar(1, 1);
-	vector<int> visitados(100000 - 1, 0);
-	int visitando, cicle = 0;
-	while(aVisitar.size() != 0) {
-
-		visitando = aVisitar[aVisitar.size()-1];
-		aVisitar.pop_back();
-
-		auto it = find(visitados.begin(), visitados.end(), visitando);
-		if (it != visitados.end()) {
-			cicle = 1;
-			break;
-		}
-		
-		visitados.pushB(visitando);
-
-		for (int i = 0; i < ini[visitando].size(); i++) aVisitar.pushB(ini[visitando][i]);
+		inimizades[ini.f].pushB(ini.s); 
+		inimizades[ini.s].pushB(ini.f); 
 	}
 	
-	int resp = -1;
-	if(cicle == 0) resp = func(1, 0);
+	int resp = func();
 
 	cout << resp << endl;
 	return 0;

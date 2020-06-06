@@ -38,6 +38,6 @@ int main() {
 	else resp = pulos(m1);
 
 
-	cout << resp << endl;
+	cout << resp << "\n";
 	return 0;
 }

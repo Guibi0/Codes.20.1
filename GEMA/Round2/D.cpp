@@ -38,6 +38,6 @@ int main() {
 		resp /= fat;			
 	}
 
-	cout << resp << endl;
+	cout << resp << "\n";
 	return 0;
 }

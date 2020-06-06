@@ -13,6 +13,6 @@ int main() {
 	int vm, vd, az;
 	cin >> vm >> vd >> az;
 
-	cout << vm/2 + vd/2 + az/2 << endl;
+	cout << vm/2 + vd/2 + az/2 << "\n";
 	return 0;
 }

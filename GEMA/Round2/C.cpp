@@ -35,6 +35,6 @@ int main() {
 	int resp = 0;
 	for(int i = 0; i < 30; i++) if (potB[i] != potG[i]) resp += pow(2, i);
 
-	cout << resp << endl;
+	cout << resp << "\n";
 	return 0;
 }
