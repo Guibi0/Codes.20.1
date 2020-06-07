@@ -25,7 +25,6 @@ void menu() {
 			// <>: <>\n\n 
 			if (offset) printData(name.reg, offset)
 
-
 	while !strcmp(op, "exit")
 
 	return 0
