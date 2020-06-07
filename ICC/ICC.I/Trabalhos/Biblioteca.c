@@ -97,10 +97,10 @@ Dados *criaAcervo(int qtdaLivros) {
 
 // >Função que realiza o aluguel de um livro
 // >Parâmetros: 
-//	 -struct com o dados atuais da biblioteca
+//	 -ponteiro ederençando a struct com o dados atuais da biblioteca
 // >Retorno: 
-//	 -a struct atualizada
-Biblioteca alugarLivro(Biblioteca biblio) {
+//	 -não há retorno
+void alugarLivro(Biblioteca *biblio) {
 	
 	// Recebe o livro procurado
 	printf("Digite o livro que voce procura:\n");
@@ -108,10 +108,10 @@ Biblioteca alugarLivro(Biblioteca biblio) {
 
 	// Procura o livro no acervo, verificando se já está alugado ou não 	
 	int i, livroPresente = NAO, jaAlugado;
-	for (i = 0; i < biblio.acervo.qtda; i++) {	
-		if (strcmp(biblio.acervo.obras[i].nome, livroDesejado) == 0) {
+	for (i = 0; i < biblio->acervo.qtda; i++) {	
+		if (strcmp(biblio->acervo.obras[i].nome, livroDesejado) == 0) {
 			livroPresente = SIM;
-			jaAlugado = biblio.acervo.obras[i].alugado;
+			jaAlugado = biblio->acervo.obras[i].alugado;
 			break;
 		}
 	}
@@ -122,7 +122,7 @@ Biblioteca alugarLivro(Biblioteca biblio) {
 
 	}else {
 		// Avisa caso o limite de livros já tenha sido antingido
-		if (biblio.alugados.qtda == 10) {
+		if (biblio->alugados.qtda == 10) {
 			printf("Voce ja tem 10 livros alugados\n");
 
 		}else {
@@ -130,11 +130,11 @@ Biblioteca alugarLivro(Biblioteca biblio) {
 				printf("Livro ja alugado\n");
 
 			}else {
-				biblio.acervo.obras[i].alugado = SIM;
+				biblio->acervo.obras[i].alugado = SIM;
 
 				// Guarda livro na lista de alugados, reajustando o tamanho
-				biblio.alugados.obras[biblio.alugados.qtda] = biblio.acervo.obras[i];
-				biblio.alugados.qtda++;
+				biblio->alugados.obras[biblio->alugados.qtda] = biblio->acervo.obras[i];
+				biblio->alugados.qtda++;
 
 	 			printf("%s alugado com sucesso\n", livroDesejado);
 			}
@@ -142,33 +142,32 @@ Biblioteca alugarLivro(Biblioteca biblio) {
 	}
 
 	free(livroDesejado);
-	return biblio;
 }
 
 // >Função que mostra a lista ordenada de livros alugados caso essa exista
 // >Parâmetros: 
-//	 -struct com os dados dos livros alugados
+//	 -ponteiro endereçando a struct com os dados dos livros alugados
 // >Retorno: 
 // 	 -não há retorno
-void mostrarAlugados(Lista alugados) {
+void mostrarAlugados(Lista *alugados) {
 
-	if (alugados.qtda == 0) printf("Voce nao tem livros alugados\n");
+	if (alugados->qtda == 0) printf("Voce nao tem livros alugados\n");
 	else {
-		printf("Voce tem %d livro(s) alugado(s)\n", alugados.qtda);
+		printf("Voce tem %d livro(s) alugado(s)\n", alugados->qtda);
 
-		for (int i = 0; i < alugados.qtda; i++) {
-			printf("Livro nome: %s\n", alugados.obras[i].nome);
-			printf("Devolve-lo daqui %d dias\n", alugados.obras[i].qtdaDeDias);
+		for (int i = 0; i < alugados->qtda; i++) {
+			printf("Livro nome: %s\n", alugados->obras[i].nome);
+			printf("Devolve-lo daqui %d dias\n", alugados->obras[i].qtdaDeDias);
 		}
 	}
 }
 
 // >Função que realiza a devolução de um livro caso esse esteja alugado
 // >Parâmetros: 
-// 	 -struct com o dados atuais da biblioteca
+// 	 -ponteiro que endereça a struct com o dados atuais da biblioteca
 // >Retorno: 
-// 	 -a struct atualizada
-Biblioteca devolverLivro(Biblioteca biblio) {
+// 	 -não há retorno
+void devolverLivro(Biblioteca *biblio) {
 
 	// Recebe o livro procurado
 	printf("Digite o livro que deseja devolver:\n");
@@ -176,9 +175,9 @@ Biblioteca devolverLivro(Biblioteca biblio) {
 
 	// Procura o nome na lista de alugados
 	int livro_presente = NAO, posDevolvido = 0;
-	while (posDevolvido < biblio.alugados.qtda) {
+	while (posDevolvido < biblio->alugados.qtda) {
 
-		if (strcmp(livroDevolvido, biblio.alugados.obras[posDevolvido].nome) == 0) {
+		if (strcmp(livroDevolvido, biblio->alugados.obras[posDevolvido].nome) == 0) {
 			livro_presente = SIM;
 			break;
 		}
@@ -193,54 +192,53 @@ Biblioteca devolverLivro(Biblioteca biblio) {
 
 		// Encontra o livro no acervo e muda o estado de aluguel dele
 		int i = 0;
-		while (i < biblio.acervo.qtda) {
-			if (strcmp(livroDevolvido, biblio.acervo.obras[i].nome) == 0) {
-				biblio.acervo.obras[i].alugado = NAO;
+		while (i < biblio->acervo.qtda) {
+			if (strcmp(livroDevolvido, biblio->acervo.obras[i].nome) == 0) {
+				biblio->acervo.obras[i].alugado = NAO;
 				break;
 			}
 
 			i++;		
 		}
-		printf("Livro %s foi devolvido com sucesso\n", biblio.acervo.obras[i].nome);
+		printf("Livro %s foi devolvido com sucesso\n", biblio->acervo.obras[i].nome);
 
 		// Atualiza a dados da lista de alugados 
-		biblio.alugados.qtda--;
-		biblio.alugados.obras[posDevolvido].alugado = NAO;
+		biblio->alugados.qtda--;
+		biblio->alugados.obras[posDevolvido].alugado = NAO;
 
 		// Rearranja de forma ordenada a lista de alugados em um novo ponteiro
-		for (int nova = 0, ant = 0; nova < biblio.alugados.qtda; ant++) {
+		for (int nova = 0, ant = 0; nova < biblio->alugados.qtda; ant++) {
 
-			if (biblio.alugados.obras[ant].alugado != NAO) {
+			if (biblio->alugados.obras[ant].alugado != NAO) {
 
-				biblio.alugados.obras[nova] = biblio.alugados.obras[ant];
+				biblio->alugados.obras[nova] = biblio->alugados.obras[ant];
 				nova++;
 			}
 		}	
 	}
 
 	free(livroDevolvido);
-	return biblio;
 }
 
 // >Função fecha o programa e desaloca memória HEAP utilizada
 // >Parâmetros: 
-// 	 -struct com todos os dados atuais da biblioteca
+// 	 -ponteiro que endereça a struct com todos os dados atuais da biblioteca
 // >Retorno: 
 //	 -não há retorno
-void saiEDesaloca(Biblioteca biblio) {
+void saiEDesaloca(Biblioteca *biblio) {
 
 	// Imprime "despedida"
 	printf("Programa finalizado\n");
 
 	// Desaloca as strings com os nomes dos todos os livros
-	for (int i = 0; i < biblio.acervo.qtda; i++) {
+	for (int i = 0; i < biblio->acervo.qtda; i++) {
 		
-		free(biblio.acervo.obras[i].nome);
+		free(biblio->acervo.obras[i].nome);
 	}
 
 	// Desaloca as listas de dados do acervo e dos alugados
-	free(biblio.acervo.obras);
-	free(biblio.alugados.obras);
+	free(biblio->acervo.obras);
+	free(biblio->alugados.obras);
 }
 
 // Função principal
@@ -266,17 +264,17 @@ int main() {
 
 		// Trata as operação
 		if (op == 1) {
-			biblio = alugarLivro(biblio);
+			alugarLivro(&biblio);
 
 		}else if(op == 2) {
-			mostrarAlugados(biblio.alugados);
+			mostrarAlugados(&biblio.alugados);
 
 		}else if (op == 3) {
-			biblio = devolverLivro(biblio);
+			devolverLivro(&biblio);
 		}
 	}
 
-	saiEDesaloca(biblio);
+	saiEDesaloca(&biblio);
 
 	return 0;
 }		
