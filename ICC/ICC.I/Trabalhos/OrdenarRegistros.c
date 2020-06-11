@@ -37,8 +37,8 @@ typedef struct {
 // >Retorno: 
 //	 -ponteiro que endereça a string
 char *recebeLinha() {
-    char *string = (char *) malloc(TAMANHOINICIAL * sizeof(char));
     int tamanho = TAMANHOINICIAL;
+    char *string = (char *) malloc(tamanho * sizeof(char));
      
     // Lê a string
     int i = 0;
