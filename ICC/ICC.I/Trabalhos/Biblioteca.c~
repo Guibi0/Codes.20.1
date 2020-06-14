@@ -136,19 +136,19 @@ void alugarLivro(Biblioteca *biblio) {
 				biblio->alugados.obras[biblio->alugados.qtda] = biblio->acervo.obras[i];
 				biblio->alugados.qtda++;
 
-				printf("%s alugado com sucesso\n", livroDesejado);
+	 			printf("%s alugado com sucesso\n", livroDesejado);
 			}
-		}
+		}	
 	}
 
 	free(livroDesejado);
 }
 
 // >Função que mostra a lista ordenada de livros alugados caso essa exista
-// >Parâmetros:
+// >Parâmetros: 
 //	 -ponteiro endereçando a struct com os dados dos livros alugados
-// >Retorno:
-//	 -não há retorno
+// >Retorno: 
+// 	 -não há retorno
 void mostrarAlugados(Lista *alugados) {
 
 	if (alugados->qtda == 0) printf("Voce nao tem livros alugados\n");
