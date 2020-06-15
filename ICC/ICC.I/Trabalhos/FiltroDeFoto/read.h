@@ -1,14 +1,19 @@
 // Biblioteca auxilar para leitura de arquivos do disco
 
+// Garante que a biblioteca não seja declarada múltiplas vezes
+#ifndef READ_H
+#define READ_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "data.h"
 
 #define FALSE 0
 #define TRUE 1
 #define NOERROR 2
 #define NOEXIST 3
-#define NOBPM 4
+#define NOBMP 4
 
 typedef char * String;
 
@@ -17,8 +22,8 @@ typedef char * String;
 //  	-um ponteiro endereçando o nome do arquivo
 //  	-um int para o turno de conferência
 // >Retorno:
-// 		-TRUE ou FALSE
-int isBMP(String name);
+// 		-um int com a resposta de conferência
+int isBMP(String name, int turn);
 
 // >Função geral para leitura em disco
 // >Parâmetros:
@@ -27,3 +32,5 @@ int isBMP(String name);
 // >Retorno:
 // 		-um int indicando a situação final do processo de leitura
 int readFile(Image *original, String name);
+
+#endif

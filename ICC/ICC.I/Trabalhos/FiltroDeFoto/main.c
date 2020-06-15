@@ -12,18 +12,17 @@
  
 #include "data.h"
 #include "read.h"
-// #include "write.h"
+#include "write.h"
 
 int main() {
-
 	// Recebe a entrada com nome do arquivo da foto e o tipo de filtro a ser aplicado
-	String fOriginalName = readName();
+	String originalName = readName();
 	int typeFilter;
 	scanf("%d", &typeFilter);
 
 	// Recebe os dados do arquivo original, caso ele exista e tenha o formato correto
 	Image *img = (Image *) malloc(sizeof(Image));
-	int error = readFile(&img, &fOriginalName)
+	int error = readFile(img, originalName);
 
 	// Verifica se há erros
 	if (error == NOEXIST) {
@@ -31,15 +30,17 @@ int main() {
 		return 0;
 	}
 	else if (error == NOBMP) {
-		printf("Arquivo não eh BMP\n");
+		printf("Arquivo não eh do formato BMP\n");
 		return 0;
 	}
-	else {
-		// String fNewName = writeFile(&img, &fOriginalName, typeFilter); 
+	else if (error == NOERROR){
+		// Salva a paleta original para imprimir os dados no final e chama a criação do novo arquivo
+		Colors *originalPallet = saveOriginalPallet(img->pallet);
+		String newName = writeFile(img, originalName, typeFilter); 
+		
+		printData(img, originalPallet, newName);
+		
+		deallocate(img, originalPallet, originalName, newName);
+		return 0;
 	}
-
-	printData(&img, fNewName);
-
-	// deallocate(&img, fOriginalName, fNewName);
-	return 0;
 }

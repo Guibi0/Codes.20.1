@@ -1,7 +1,9 @@
+# Arquivo Makefile para compilação e execução do programa
+PROG = FiltroDeFotos
 
 all: $(PROG) clean
 
-$(PROG): main.o utils.o skiplist.o
+$(PROG): main.o data.o read.o write.o
 	@gcc main.o data.o read.o write.o -lm -g -o $(PROG)
 
 clean:
