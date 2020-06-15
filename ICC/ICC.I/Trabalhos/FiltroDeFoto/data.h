@@ -27,7 +27,7 @@ typedef struct {
 	int width;
 	int heigth;
 	short numPlanes; // = 0
-	short bitPerPx;
+	short bitsPerPx;
 	int compression; // = 0
 	int imgSize;
 	int pxResolutionH;

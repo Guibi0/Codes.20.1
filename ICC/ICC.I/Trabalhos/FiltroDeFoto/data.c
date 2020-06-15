@@ -46,7 +46,7 @@ void printData(Image *img, Colors *originalPallet, String newName) {
     printf("Tamanho em bytes do segundo cabecalho: %d\n", img->imgData.headerSize);
     printf("Resolucao: %d x %d\n", img->imgData.width, img->imgData.heigth);
     printf("Numero de planos: %hd\n", img->imgData.numPlanes);
-    printf("Bits por pixel: %hd\n", img->imgData.bitPerPx);
+    printf("Bits por pixel: %hd\n", img->imgData.bitsPerPx);
     printf("Compressao usada: %d\n", img->imgData.compression);
     printf("Tamanho imagem: %d\n", img->imgData.imgSize);
     printf("Resolucao horizontal: %d pixel por metro\n", img->imgData.pxResolutionH);

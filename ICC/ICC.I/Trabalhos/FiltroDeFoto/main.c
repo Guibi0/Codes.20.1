@@ -30,7 +30,7 @@ int main() {
 		return 0;
 	}
 	else if (error == NOBMP) {
-		printf("Arquivo não eh do formato BMP\n");
+		printf("Arquivo nao eh do formato BMP\n");
 		return 0;
 	}
 	else if (error == NOERROR){

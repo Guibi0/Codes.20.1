@@ -41,10 +41,23 @@ int readFile(Image *img, String name) {
 				fread(&img->fileData.displacement, sizeof(img->fileData.displacement), 1, imgPtr);
 
 				// Lê o cabeçalho de mapa de bits na struct
-				fread(&img->imgData, sizeof(img->imgData), 1, imgPtr);
+				fread(&img->imgData.headerSize, sizeof(img->imgData.headerSize), 1, imgPtr);
+				fread(&img->imgData.width, sizeof(img->imgData.width), 1, imgPtr);
+				fread(&img->imgData.heigth, sizeof(img->imgData.heigth), 1, imgPtr);
+				fread(&img->imgData.numPlanes, sizeof(img->imgData.numPlanes), 1, imgPtr);
+				fread(&img->imgData.bitsPerPx, sizeof(img->imgData.bitsPerPx), 1, imgPtr);
+				fread(&img->imgData.compression, sizeof(img->imgData.compression), 1, imgPtr);
+				fread(&img->imgData.imgSize, sizeof(img->imgData.imgSize), 1, imgPtr);
+				fread(&img->imgData.pxResolutionH, sizeof(img->imgData.pxResolutionH), 1, imgPtr);
+				fread(&img->imgData.pxResolutionV, sizeof(img->imgData.pxResolutionV), 1, imgPtr);
+				fread(&img->imgData.numUsedColors, sizeof(img->imgData.numUsedColors), 1, imgPtr);
+				fread(&img->imgData.numImportantColors, sizeof(img->imgData.numImportantColors), 1, imgPtr);
+
 
 				// Lê a paleta de cores na struct
-				fread(&img->pallet, sizeof(img->pallet), 1, imgPtr);
+				for (int i  = 0; i < PALLETSIZE; i++) {
+					fread(&img->pallet[i], sizeof(img->pallet[i]), 1, imgPtr);
+				}
 				fclose(imgPtr); // Fecha o arquivo para evitar possíveis erros
 
 				// Aloca a matriz para os valores de cada pixel

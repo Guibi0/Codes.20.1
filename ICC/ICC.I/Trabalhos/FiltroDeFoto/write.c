@@ -74,10 +74,22 @@ String writeFile(Image *img, String originalName, int typeFilter) {
 	fwrite(&img->fileData.displacement, sizeof(img->fileData.displacement), 1, imgPtr);
 
 	// Escreve o cabeçalho de mapa de bits na struct
-	fwrite(&img->imgData, sizeof(img->imgData), 1, imgPtr);
+	fwrite(&img->imgData.headerSize, sizeof(img->imgData.headerSize), 1, imgPtr);
+	fwrite(&img->imgData.width, sizeof(img->imgData.width), 1, imgPtr);
+	fwrite(&img->imgData.heigth, sizeof(img->imgData.heigth), 1, imgPtr);
+	fwrite(&img->imgData.numPlanes, sizeof(img->imgData.numPlanes), 1, imgPtr);
+	fwrite(&img->imgData.bitsPerPx, sizeof(img->imgData.bitsPerPx), 1, imgPtr);
+	fwrite(&img->imgData.compression, sizeof(img->imgData.compression), 1, imgPtr);
+	fwrite(&img->imgData.imgSize, sizeof(img->imgData.imgSize), 1, imgPtr);
+	fwrite(&img->imgData.pxResolutionH, sizeof(img->imgData.pxResolutionH), 1, imgPtr);
+	fwrite(&img->imgData.pxResolutionV, sizeof(img->imgData.pxResolutionV), 1, imgPtr);
+	fwrite(&img->imgData.numUsedColors, sizeof(img->imgData.numUsedColors), 1, imgPtr);
+	fwrite(&img->imgData.numImportantColors, sizeof(img->imgData.numImportantColors), 1, imgPtr);
 
 	// Escreve a paleta de cores na struct
-	fwrite(&img->pallet, sizeof(img->pallet), 1, imgPtr);
+	for (int i  = 0; i < PALLETSIZE; i++) {
+		fwrite(&img->pallet[i], sizeof(img->pallet[i]), 1, imgPtr);
+	}
 
 	int heigth = img->imgData.heigth;
 	int padding = (img->imgData.width % 4) ? (4 - img->imgData.width % 4) : 0;
