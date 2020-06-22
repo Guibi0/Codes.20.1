@@ -19,7 +19,7 @@ String readName() {
         string[i] = fgetc(stdin);
 
         // Lê o '\n' pós '\r'
-        if(string[i] == '\r') string[i] = fgetc(stdin);
+        if (string[i] == '\r') string[i] = fgetc(stdin);
 
         i++;
     }while (string[i - 1] != '\n' && string[i - 1] != EOF);
