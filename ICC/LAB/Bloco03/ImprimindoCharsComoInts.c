@@ -19,10 +19,10 @@
 
 // >Função que recebe uma string, incluindo espaços
 // >Parâmetros: 
-//	-não há parâmetros
+//	-um ponteiro do tipo FILE que indica onde ocorre a leitura dos chars
 // >Retorno: 
 //	-ponteiro que endereça a string
-char *recebeChars() {
+char *recebeChars(FILE *ptr) {
     int tamanho = TAMANHOINICIAL;
     char *string = (char *) malloc(tamanho * sizeof(char));
      
@@ -36,10 +36,10 @@ char *recebeChars() {
         }
     	
     	// Recebe caracter por caracter
-        string[i] = fgetc(stdin);
+        string[i] = fgetc(ptr);
 
         // Pula leitura do '\n' e '\r'
-        while(string[i] == '\r' || string[i] == '\n') string[i] = fgetc(stdin);
+        while(string[i] == '\r' || string[i] == '\n') string[i] = fgetc(ptr);
 
         i++;
     }while (string[i - 1] != 'x');
@@ -56,7 +56,7 @@ int comparaChars(const void *a, const void *b){
 }
 
 int main() {
-	char *string = recebeChars();
+	char *string = recebeChars(stdin);
 	qsort(string, strlen(string), sizeof(char), comparaChars);
 	int *caracteres = (int *)string;
 
