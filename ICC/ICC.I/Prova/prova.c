@@ -43,10 +43,10 @@ typedef struct {
 } Input;
 
 // Função que lê strings
-char *recebeStrings(FILE *ptr) {
+char *recebeString(FILE *ptr) {
     int tam = TAMANHOINICIAL;
     char *string = (char *) malloc(tam * sizeof(char));
-     
+
     // Lê a string
     int i = 0;
     do {
@@ -72,11 +72,11 @@ char *recebeStrings(FILE *ptr) {
 }
 
 void recebeEntrada(Input *in) {
-	in->nomeDoArq = recebeStrings(stdin);
-	in->padraoReg1 = recebeStrings(stdin);
-	in->padraoReg2 = recebeStrings(stdin);
-	in->padraoReg3 = recebeStrings(stdin);
-	in->palavraW = recebeStrings(stdin);
+	in->nomeDoArq = recebeString(stdin);
+	in->padraoReg1 = recebeString(stdin);
+	in->padraoReg2 = recebeString(stdin);
+	in->padraoReg3 = recebeString(stdin);
+	in->palavraW = recebeString(stdin);
 }
 
 void leArquivo(Arquivo *arq, Input *in) {
@@ -98,7 +98,7 @@ void leArquivo(Arquivo *arq, Input *in) {
 		}
 
 		// Inicializa conteúdo para a struct de cada palavra
-		arq->palavras[i].conteudo = recebeStrings(ptrArq);
+		arq->palavras[i].conteudo = recebeString(ptrArq);
 		arq->palavras[i].tam = strlen(arq->palavras[i].conteudo);
 
 		// Ignora as linhas sem palavras
@@ -115,12 +115,13 @@ void leArquivo(Arquivo *arq, Input *in) {
 }
 
 int contaPalindromos(Arquivo *arq) {
-	// Verifica se a palavra não é palíndromo e decrementa o contador(inicialmente 
-	//igual a quantidade total de palavras)
+	// Analisa todas as palavras do arquivo
 	int cont = arq->qtdaPalavras;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
 		int inicio = 0, fim = arq->palavras[i].tam - 1;
 		
+		// Verifica se a palavra não é palíndromo e decrementa o contador(inicialmente 
+		//igual a quantidade total de palavras)
 		while (inicio <= fim) {
 			if (arq->palavras[i].conteudo[inicio] != arq->palavras[i].conteudo[fim]) {
 				cont--;
