@@ -54,10 +54,10 @@ typedef struct {
 
 // >Função que recebe uma string, incluindo espaços
 // >Parâmetros: 
-//		-não há parâmetros
+//	 -um ponteiro do tipo FILE que indica onde ocorre a leitura dos chars
 // >Retorno: 
-//		-ponteiro que endereça a string
-String readName();
+//	 -ponteiro que endereça a string
+String readName(FILE *ptr);
 
 // >Função que salva os dados originais da paleta de cores
 // >Parâmetros:

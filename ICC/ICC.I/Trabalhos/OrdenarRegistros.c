@@ -33,24 +33,24 @@ typedef struct {
 
 // >Função que recebe uma string, incluindo espaços
 // >Parâmetros: 
-//	 -não há parâmetros
+//	 -um ponteiro do tipo FILE que indica onde ocorre a leitura dos chars
 // >Retorno: 
 //	 -ponteiro que endereça a string
-char *recebeLinha() {
-    int tamanho = TAMANHOINICIAL;
-    char *string = (char *) malloc(tamanho * sizeof(char));
+char *recebeLinha(FILE *ptr) {
+    int tam = TAMANHOINICIAL;
+    char *string = (char *) malloc(tam * sizeof(char));
      
     // Lê a string
     int i = 0;
     do {
         // Realoca a string em um espaço maior caso necessário
-        if (i == tamanho) {
-        	tamanho *= 2;
-        	string = (char *) realloc(string, tamanho * sizeof(char));
+        if (i == tam) {
+        	tam *= 2;
+        	string = (char *) realloc(string, tam * sizeof(char));
         }
-    	
+
     	// Recebe caracter por caracter
-        string[i] = fgetc(stdin);
+        string[i] = fgetc(ptr);
 
         // Lê o '\n' pós '\r'
         if(string[i] == '\r') string[i] = fgetc(stdin);
@@ -122,7 +122,7 @@ Lista criaRegistros() {
 			registros.objetos = (Dados *) realloc(registros.objetos, registros.qtda * sizeof(Dados));
 		}
 
-		char *linha = recebeLinha();
+		char *linha = recebeLinha(stdin);
 
 		// Coloca cada parte da entrada no seu devido lugar 
 		linha[strlen(linha)] = '\0'; 

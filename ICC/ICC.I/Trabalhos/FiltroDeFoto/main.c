@@ -16,7 +16,7 @@
 
 int main() {
 	// Recebe a entrada com nome do arquivo da foto e o tipo de filtro a ser aplicado
-	String originalName = readName();
+	String originalName = readName(stdin);
 	int typeFilter;
 	scanf("%d", &typeFilter);
 

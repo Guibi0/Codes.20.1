@@ -2,7 +2,7 @@
 
 #include "data.h"
 
-String readName() {
+String readName(FILE *ptr) {
     int size = INITIALSIZE;
     char *string = (char *) malloc(size * sizeof(char));
 
@@ -16,7 +16,7 @@ String readName() {
         }
 
         // Recebe caracter por caracter
-        string[i] = fgetc(stdin);
+        string[i] = fgetc(ptr);
 
         // Lê o '\n' pós '\r'
         if (string[i] == '\r') string[i] = fgetc(stdin);
