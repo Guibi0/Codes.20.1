@@ -142,12 +142,12 @@ Lista criaRegistros() {
 
 // >Função auxiliar à função "qsort" para ordenação alfabética
 int comparaNomes(const void *a, const void *b){
-  return (strcmp((*(Dados*)a).nome, (*(Dados*)b).nome));
+	return (strcmp((*(Dados*)a).nome, (*(Dados*)b).nome));
 }
 
 // >Função auxiliar à função qsort para ordenação numérica crescente
 int comparaNumeros(const void *a, const void *b){
-  return ((*(Dados*)a).numero - (*(Dados*)b).numero);
+	return ((*(Dados*)a).numero - (*(Dados*)b).numero);
 }
 
 // >Função que imprime os registros já ordenados
