@@ -108,6 +108,7 @@ void leArquivo(Arquivo *arq, Input *in) {
 		if (arq->palavras[i-1].tam < arq->palavras[arq->posCurta].tam) arq->posCurta = i - 1;
 		if (arq->palavras[i-1].tam > arq->palavras[arq->posLonga].tam) arq->posLonga = i - 1;
 	}
+
 	// Realoca para o tamanho ideal
 	arq->qtdaPalavras = i;
 	arq->palavras = (String *) realloc(arq->palavras, arq->qtdaPalavras * sizeof(String));
@@ -119,7 +120,7 @@ int contaPalindromos(Arquivo *arq) {
 	int cont = arq->qtdaPalavras;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
 		int inicio = 0, fim = arq->palavras[i].tam - 1;
-		
+
 		// Verifica se a palavra não é palíndromo e decrementa o contador(inicialmente 
 		//igual a quantidade total de palavras)
 		while (inicio <= fim) {
@@ -135,8 +136,7 @@ int contaPalindromos(Arquivo *arq) {
 	return cont;
 }
 
-//Função que conta quantas palavras atendem ao padrão P1
-int regexP1(Arquivo *arq, char *padrao) {
+int contaOcorrenciasRegex(Arquivo *arq, char *padrao) {
 	// Prepara a variável "regex" para as operações com a "regex.h"
 	regex_t regex;
 	regcomp(&regex, padrao, REG_EXTENDED);
@@ -152,8 +152,7 @@ int regexP1(Arquivo *arq, char *padrao) {
 	return cont;
 }
 
-//Função que encontra qual a maior palavra que atende a padrão P2
-int regexP2(Arquivo *arq, char *padrao) {
+int encontraMaiorPalavraRegex(Arquivo *arq, char *padrao) {
 	// Prepara a variável "regex" para as operações com a "regex.h"
 	regex_t regex;
 	regcomp(&regex, padrao, REG_EXTENDED);
@@ -174,8 +173,7 @@ int comparaNomes(const void *a, const void *b){
 	return (strcmp((*(char* *)a), (*(char* *)b)));
 }
 
-//Função que encontra quais palavras atendem a padrão P3, imprimindo-as em ordem alfabética
-void regexP3(Arquivo *arq, char *padrao) {
+void imprimeOcorrenciasRegexEmOrdemAlbetica(Arquivo *arq, char *padrao) {
 	// Prepara a variável "regex" para as operações com a "regex.h"
 	regex_t regex;
 	regcomp(&regex, padrao, REG_EXTENDED);
@@ -183,6 +181,7 @@ void regexP3(Arquivo *arq, char *padrao) {
 	// Declara e aloca um ponteiro de endereços
 	int qtdaPadrao = arq->qtdaPalavras;
 	char **palavrasPadrao = (char* *) malloc(qtdaPadrao * sizeof(char *));
+
 	// Guarda os endereços das palavras que atendem o padrão na região aloca acima
 	int cont = 0;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
@@ -203,7 +202,7 @@ void regexP3(Arquivo *arq, char *padrao) {
 	free(palavrasPadrao);
 }
 
-void encontraPalavraMaisProxima(Arquivo *arq, char *palavraParametro) {
+void imprimePalavraMaisProxima(Arquivo *arq, char *palavraParametro) {
 	// Declara e aloca um ponteiro com endereços auxiliar à procura da palavra mais similar
 	int altura = strlen(palavraParametro);
 	int **matrizDeSimilaridade = (int* *) calloc(altura, sizeof(int *));
@@ -277,17 +276,19 @@ int main() {
 	printf("%d\n", arq.qtdaPalavras);
 	printf("%s\n", arq.palavras[arq.posCurta].conteudo);
 	printf("%s\n", arq.palavras[arq.posLonga].conteudo);
-	// Verifica a quantidade de ocorrências para o padrão P1
-	printf("%d\n", regexP1(&arq, entrada.padraoReg1));
-	// Conta e imprime a quantidade de palavras
+
+	// Imprime a quantidade de ocorrências para o padrão P1
+	printf("%d\n", contaOcorrenciasRegex(&arq, entrada.padraoReg1));
+
+	// Imprime a quantidade de palavras que são palíndromos no arquivo
 	printf("%d\n", contaPalindromos(&arq));
-	// Busca a maior palavra do arquivo que atende ao padrão P2
-	int posLongaP2 = regexP2(&arq, entrada.padraoReg2);
+
+	// Imprime a maior palavra do arquivo que atende ao padrão P2
+	int posLongaP2 = encontraMaiorPalavraRegex(&arq, entrada.padraoReg2);
 	printf("%s\n", arq.palavras[posLongaP2].conteudo);
-	// Imprime as palavras do arquivo que atendem ao padrão P3 em ordem alfabética
-	regexP3(&arq, entrada.padraoReg3);
-	// Encontra a palavra mais próxima da palavra W e imprime ela
-	encontraPalavraMaisProxima(&arq, entrada.palavraW);
+
+	imprimeOcorrenciasRegexEmOrdemAlbetica(&arq, entrada.padraoReg3);
+	imprimePalavraMaisProxima(&arq, entrada.palavraW);
 
 	liberaMemoria(&arq, &entrada);
 	return 0;
