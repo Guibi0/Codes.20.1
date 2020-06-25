@@ -119,11 +119,11 @@ int contaPalindromos(Arquivo *arq) {
 	// Analisa todas as palavras do arquivo
 	int cont = arq->qtdaPalavras;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
-		int inicio = 0, fim = arq->palavras[i].tam - 1;
 
 		// Verifica se a palavra não é palíndromo e decrementa o contador(inicialmente 
 		//igual a quantidade total de palavras)
-		while (inicio <= fim) {
+		int inicio = 0, fim = arq->palavras[i].tam - 1;
+		while (inicio < fim) {
 			if (arq->palavras[i].conteudo[inicio] != arq->palavras[i].conteudo[fim]) {
 				cont--;
 				break;
@@ -196,7 +196,7 @@ void imprimeOcorrenciasRegexEmOrdemAlbetica(Arquivo *arq, char *padrao) {
 	qtdaPadrao = cont;
 	palavrasPadrao = (char* *) realloc(palavrasPadrao, qtdaPadrao * sizeof(char *));
 
-	// Ordena e imprime
+	// Ordena a lista de encereços e imprime ultizando esses
 	qsort(palavrasPadrao, qtdaPadrao, sizeof(char *), comparaNomes);
 	for (int i = 0; i < qtdaPadrao; i++) printf("%s\n", palavrasPadrao[i]);
 	free(palavrasPadrao);
