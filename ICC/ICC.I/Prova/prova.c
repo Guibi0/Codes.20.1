@@ -103,6 +103,10 @@ void leArquivo(Arquivo *arq, Input *in) {
 
 		// Ignora as linhas sem palavras
 		if (strcmp(arq->palavras[i].conteudo, "")) i++;
+		else {
+			free(arq->palavras[i].conteudo);
+			continue;
+		}
 
 		// Armazena o indice das palavra mais curta e da mais longa
 		if (arq->palavras[i-1].tam < arq->palavras[arq->posCurta].tam) arq->posCurta = i - 1;
@@ -124,10 +128,12 @@ int contaPalindromos(Arquivo *arq) {
 		//igual a quantidade total de palavras)
 		int inicio = 0, fim = arq->palavras[i].tam - 1;
 		while (inicio < fim) {
+
 			if (arq->palavras[i].conteudo[inicio] != arq->palavras[i].conteudo[fim]) {
 				cont--;
 				break;
 			}
+
 			inicio++;
 			fim--;
 		}
