@@ -10,3 +10,4 @@ int main() {
 	exitAndFree(all)
 	return 0;
 }
+
