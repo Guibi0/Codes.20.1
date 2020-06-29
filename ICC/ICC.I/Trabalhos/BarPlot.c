@@ -38,9 +38,9 @@ int main() {
 	//Imprime o gráfico linha por linha, utilizando o vetor que armazena as 
 	//quantidades para cada linha desse
 	for (int i = 0; i < qtda_barras; i++) {
-		 //Imprime o índice para cada linha do gráfico
+		//Imprime o índice para cada linha do gráfico
 		printf("%d - ", i);
-		 //Imprime o gráfico
+		//Imprime o gráfico
 		for(; qtdarotulo[i] > 0; qtdarotulo[i]--){
 			printf("#");
 		}

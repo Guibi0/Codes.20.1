@@ -4,8 +4,8 @@
  *******************************************************************************
  |                    Bacharelado em Ciências de Computação                    |
  |                                   2020/1                                    |
- |                                                                             |                      
- |                        Autor: Guilherme Rios(1122839)                       | 
+ |                                                                             |
+ |                        Autor: Guilherme Rios(1122839)                       |
  *******************************************************************************
  > Programa que analisa um arquivo com strings de acordo com padrões
  *******************************************************************************/
@@ -15,8 +15,6 @@
 #include <string.h>
 #include <regex.h>
 
-#define SIM 1
-#define NAO 0
 #define TAMANHOINICIAL 1024
 
 // Struct que organiza os dados sobre cada palavra
@@ -42,7 +40,6 @@ typedef struct {
 	char* palavraW;
 } Input;
 
-// Função que lê strings
 char *recebeString(FILE *ptr) {
     int tam = TAMANHOINICIAL;
     char *string = (char *) malloc(tam * sizeof(char));
@@ -60,7 +57,7 @@ char *recebeString(FILE *ptr) {
         string[i] = fgetc(ptr);
 
         // Lê o '\n' pós '\r'
-        if(string[i] == '\r') string[i] = fgetc(stdin);
+        if(string[i] == '\r') string[i] = fgetc(ptr);
 
         i++;
     }while (string[i - 1] != '\n' && string[i - 1] != EOF);
@@ -99,7 +96,6 @@ void leArquivo(Arquivo *arq, Input *in) {
 
 		// Inicializa conteúdo para a struct de cada palavra
 		arq->palavras[i].conteudo = recebeString(ptrArq);
-		arq->palavras[i].tam = strlen(arq->palavras[i].conteudo);
 
 		// Ignora as linhas sem palavras
 		if (strcmp(arq->palavras[i].conteudo, "")) i++;
@@ -107,6 +103,9 @@ void leArquivo(Arquivo *arq, Input *in) {
 			free(arq->palavras[i].conteudo);
 			continue;
 		}
+
+		// Guarda tamanho da palavra lida na volta atual
+		arq->palavras[i - 1].tam = strlen(arq->palavras[i - 1].conteudo);
 
 		// Armazena o indice das palavra mais curta e da mais longa
 		if (arq->palavras[i-1].tam < arq->palavras[arq->posCurta].tam) arq->posCurta = i - 1;
@@ -149,9 +148,10 @@ int contaOcorrenciasRegex(Arquivo *arq, char *padrao) {
 
 	// Verifica se a palavra não obedece o padrão e decrementa o contador(inicialmente
 	//igual a quantidade total de palavras)
-	int cont = arq->qtdaPalavras;
+	int cont = arq->qtdaPalavras, naoEstaNoPadrao = 0;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
-		if (regexec(&regex, arq->palavras[i].conteudo, 0, NULL, 0)) cont--;
+		naoEstaNoPadrao = regexec(&regex, arq->palavras[i].conteudo, 0, NULL, 0);
+		if (naoEstaNoPadrao) cont--;
 	}
 	regfree(&regex);
 
@@ -164,9 +164,10 @@ int encontraMaiorPalavraRegex(Arquivo *arq, char *padrao) {
 	regcomp(&regex, padrao, REG_EXTENDED);
 
 	// Verifica dentre as palavras que atendem o padrão qual é a mais longa
-	int posLonga = 0;
+	int posLonga = 0, estaNoPadrao = 0;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
-		if (!regexec(&regex, arq->palavras[i].conteudo, 0, NULL, 0)) {
+		estaNoPadrao = !regexec(&regex, arq->palavras[i].conteudo, 0, NULL, 0);
+		if (estaNoPadrao) {
 			if (arq->palavras[i].tam > arq->palavras[posLonga].tam) posLonga = i;
 		}
 	}
@@ -189,9 +190,10 @@ void imprimeOcorrenciasRegexEmOrdemAlbetica(Arquivo *arq, char *padrao) {
 	char **palavrasPadrao = (char* *) malloc(qtdaPadrao * sizeof(char *));
 
 	// Guarda os endereços das palavras que atendem o padrão na região aloca acima
-	int cont = 0;
+	int cont = 0, estaNoPadrao = 0;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
-		if (!regexec(&regex, arq->palavras[i].conteudo, 0, NULL, 0)) {
+		estaNoPadrao = !regexec(&regex, arq->palavras[i].conteudo, 0, NULL, 0);
+		if (estaNoPadrao) {
 			palavrasPadrao[cont] = arq->palavras[i].conteudo;
 			cont++;
 		}
@@ -211,26 +213,25 @@ void imprimeOcorrenciasRegexEmOrdemAlbetica(Arquivo *arq, char *padrao) {
 void imprimePalavraMaisProxima(Arquivo *arq, char *palavraParametro) {
 	// Declara e aloca um ponteiro com endereços auxiliar à procura da palavra mais similar
 	int altura = strlen(palavraParametro);
-	int **matrizDeSimilaridade = (int* *) calloc(altura, sizeof(int *));
+	int **matrizDeSimilaridade = (int* *) malloc(altura * sizeof(int *));
 
 	// Encontra o índice de proximidade para cada palavra do arquivo, guardando, 
 	//ao fim do laço, o índice da menor palavra dentre as palavras que tem o índice
 	//de similaridade máximo
 	int posMaisProxima = 0, maiorIndiceDeSimilaridade = 0;
 	for (int i = 0; i < arq->qtdaPalavras; i++) {
+
 		// Define uma nova largura para matriz
 		int largura = arq->palavras[i].tam;
 		for (int k = 0; k < altura; k++) {
 			// Aloca iniciando com zeros a memória para a matriz auxiliar ao processo
-			matrizDeSimilaridade[k] = (int *) calloc(largura, sizeof(int));
+			matrizDeSimilaridade[k] = (int *) malloc(largura * sizeof(int));
 
 			// Compara char a char de cada palavra do arquivo com a palavra parâmetro
 			//gerando o indice de similaridade
 			for (int j = 0; j < largura; j++) {
 				// Copia o valor do elemento anterior da diagonal para o atual
-				if (k != 0 && j != 0) {
-					matrizDeSimilaridade[k][j] = matrizDeSimilaridade[k - 1][j - 1];
-				}
+				matrizDeSimilaridade[k][j] = ((k && j) != 0) ? matrizDeSimilaridade[k - 1][j - 1] : 0;
 
 				// Verifica se ocorreu coincidência entre os chars
 				if (arq->palavras[i].conteudo[j] == palavraParametro[k]) {
@@ -266,6 +267,7 @@ void liberaMemoria(Arquivo *arq, Input *in) {
 	free(in->padraoReg2);
 	free(in->padraoReg3);
 	free(in->palavraW);
+
 	// Libera HEAP alocada para o dados do arquivo
 	for (int i = 0; i < arq->qtdaPalavras; i++) free(arq->palavras[i].conteudo);
 	free(arq->palavras);
