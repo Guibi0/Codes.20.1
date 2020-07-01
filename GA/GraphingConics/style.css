@@ -1,0 +1,142 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap'); */
+
+html {
+  font-family: 'Courier New', Courier, monospace; 
+}
+
+.hidden {
+  display: none;
+}
+
+body {
+  text-align: center;
+  /* background-color: #edf9d9;  */
+  margin: 0;
+}
+
+.full-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: auto;
+  width: 100vw;
+  background-color: #001f3f;
+  color: #ffffff;
+  box-sizing: border-box;
+  padding-bottom: 20px;
+}
+
+.footer p {
+  font-size: 13px;
+}
+
+h2 {
+  color: #001f3f;
+}
+
+h2.black {
+  color: #111111;
+}
+
+.forms-container {
+  margin: auto;
+  padding: 1vh 1vw;
+  width: 20vw;
+  background-color: #0074d9;
+
+  box-shadow: 0px 0px 2px 2px  #777770;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+.inputs {
+  padding-bottom: 5px;
+}
+
+input {
+  margin: 3px;
+  transition: transform 0.1s ease-in;
+  border-radius: 7px;
+}
+
+input:hover{
+    transform: scale(1.02);
+    box-shadow: 0px 0px 1px 0px #777770;
+}
+
+button {
+  height: 30px;
+  width: 144px;
+  transition: transform 0.1s ease-in;
+  border-radius: 7px;
+}
+
+button:hover{
+    transform: scale(1.02);
+    box-shadow: 0px 0px 1px 0px #777770;
+}
+
+#ElTitle {
+    color: maroon;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.graph-container {
+  padding: 20px;
+  background-color: #0074d9;
+  padding: 0px;
+  padding-bottom: 20px;
+}
+
+.graphs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.jxgbox {
+  display:flex;
+  min-width: 300px;
+  min-height:300px;
+  width: 60vw;
+  height: 30vw;
+  margin: auto;
+  justify-content: center;
+}
+
+@media screen and (max-width: 760px) {
+  .graph-container {
+    flex-direction: column;
+    margin: 0;
+  }
+  .jxgbox {
+    width: 80vw;
+    height: 80vw;
+    margin: 20px auto;
+  }
+  .forms-container {
+    margin: 0;
+    padding: auto;
+    width: 100vw;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+} 
