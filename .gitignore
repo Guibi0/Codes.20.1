@@ -1,6 +1,5 @@
 Testes/
+*~
 *.Identifier
-*.zip
-*.pdf
 *.out
 *.in
