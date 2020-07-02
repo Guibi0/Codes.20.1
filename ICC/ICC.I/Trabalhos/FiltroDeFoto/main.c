@@ -37,9 +37,9 @@ int main() {
 		// Salva a paleta original para imprimir os dados no final e chama a criação do novo arquivo
 		Colors *originalPallet = saveOriginalPallet(img->pallet);
 		String newName = writeFile(img, originalName, typeFilter); 
-		
+
 		printData(img, originalPallet, newName);
-		
+
 		deallocate(img, originalPallet, originalName, newName);
 		return 0;
 	}
