@@ -34,7 +34,7 @@ int readFile(Image *img, String name) {
 			else {
 				imgPtr = fopen(name, "rb");
 				fseek(imgPtr, sizeof(img->fileData.signature), SEEK_SET);
-				
+
 				// Lê o cabeçalho de arquivo na struct
 				fread(&img->fileData.fileSize, sizeof(img->fileData.fileSize), 1, imgPtr);
 				fread(&img->fileData.reservedField, sizeof(img->fileData.reservedField), 1, imgPtr);
@@ -53,7 +53,6 @@ int readFile(Image *img, String name) {
 				fread(&img->imgData.numUsedColors, sizeof(img->imgData.numUsedColors), 1, imgPtr);
 				fread(&img->imgData.numImportantColors, sizeof(img->imgData.numImportantColors), 1, imgPtr);
 
-
 				// Lê a paleta de cores na struct
 				for (int i  = 0; i < PALLETSIZE; i++) {
 					fread(&img->pallet[i], sizeof(img->pallet[i]), 1, imgPtr);
@@ -68,7 +67,7 @@ int readFile(Image *img, String name) {
 				for (int i = 0; i < heigth; i++) {
 					img->pixels[i] = (unsigned char *) malloc(width * sizeof(unsigned char));
 				}
-				
+
 				imgPtr = fopen(name, "r");
 				// Coloca o ponteiro na posição correta tendo como base o final e voltando
 				//a quantidade de pixels

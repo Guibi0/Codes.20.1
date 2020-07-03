@@ -72,7 +72,7 @@ void imprimeSaida(Imagem original, int **final, int tamBorda) {
 	// Imprime a imagem original
 	for (int i = 0; i < original.altura; i++) {
 		
-		for (int j = 0; j < original.largura; j++) {
+		for (int j = 0; j  original.largura; j++) {
 			printf("%d ", original.conteudo[i][j]);
 		}
 		printf("\n");
