@@ -113,8 +113,7 @@ void imprime_det_matriz(int **matriz, int ordem) {
 	}
 
 	//Imprime a resposta
-	printf("O determinante da matriz de entrada equivale a %d e tem ordem %d\n",
-																	det, ordem);
+	printf("O determinante da matriz de entrada equivale a %d e tem ordem %d\n", det, ordem);
 
 }
 
@@ -127,7 +126,6 @@ int main() {
 	
 	//Cria essa matriz
 	int **matriz = aloca_matriz(qtda_linhas, qtda_colunas);
-
 
 	//Condições que analizam o formato da matriz, tratando matrizes quadradas 
 	//e não quadradas, respectivamente
