@@ -52,7 +52,7 @@ char *recebeChars(FILE *ptr) {
  
 // >Função auxiliar à funcção "qsort"
 int comparaChars(const void *a, const void *b){
-	return ( *(char*)a - *(char*)b );
+	return (*(char*)a - *(char*)b);
 }
 
 int main() {
