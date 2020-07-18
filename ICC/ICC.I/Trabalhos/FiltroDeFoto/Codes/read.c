@@ -33,6 +33,7 @@ int readFile(Image *img, String name) {
 			if (!(isBMP(img->fileData.signature, 2))) return NOBMP;
 			else {
 				imgPtr = fopen(name, "rb");
+				if (imgPtr == NULL) return NOEXIST;
 				fseek(imgPtr, sizeof(img->fileData.signature), SEEK_SET);
 
 				// Lê o cabeçalho de arquivo na struct
@@ -69,6 +70,7 @@ int readFile(Image *img, String name) {
 				}
 
 				imgPtr = fopen(name, "r");
+				if (imgPtr == NULL) return NOEXIST;
 				// Coloca o ponteiro na posição correta tendo como base o final e voltando
 				//a quantidade de pixels
 				int numPixels = width * heigth;

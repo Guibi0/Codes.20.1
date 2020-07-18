@@ -27,11 +27,11 @@ int main() {
 	// Verifica se há erros
 	if (error == NOEXIST) {
 		printf("Erro no arquivo\n");
-		return 0;
+		exit (EXIT_FAILURE);
 	}
 	else if (error == NOBMP) {
 		printf("Arquivo nao eh do formato BMP\n");
-		return 0;
+		exit (EXIT_FAILURE);
 	}
 	else if (error == NOERROR){
 		// Salva a paleta original para imprimir os dados no final e chama a criação do novo arquivo

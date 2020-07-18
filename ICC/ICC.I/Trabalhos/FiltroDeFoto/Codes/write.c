@@ -55,7 +55,6 @@ String createNewName(String originalName, int typeFilter) {
 }
 
 String writeFile(Image *img, String originalName, int typeFilter) {
-
 	// Aplica o filtro na paleta de cores
 	if (typeFilter == 1) negativeFilter(img->pallet);
 	else if (typeFilter == 2) blackAndWhiteFilter(img->pallet);
@@ -65,6 +64,10 @@ String writeFile(Image *img, String originalName, int typeFilter) {
 
 	// Cria um novo arquivo em disco para a imagem pós aplicação do filtro
 	FILE *imgPtr = fopen(newName, "wb");
+	if (imgPtr == NULL) {
+		perror("Erro na abertura do arquivo para escrita");
+		exit(EXIT_FAILURE);
+	}
 
 	// Escreve o cabeçalho de arquivo na struct
 	// fwrite(&img->fileData, sizeof(img->fileData), 1, imgPtr);
