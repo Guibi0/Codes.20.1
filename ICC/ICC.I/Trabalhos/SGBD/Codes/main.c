@@ -10,16 +10,17 @@
  > Programa que simula um sistema de banco de dados
  *******************************************************************************/
 
-#include "leitura.h"
-#include "operacoes.h"
+#include "uteis.h"
+#include "metadados.h"
+#include "baseDeDados.h"
 
 int main() {
+	char* nomeArqBase = leLinhaComRef(stdin, NULL, NULL);
 
-	char *nomeArq = recebeNome(stdin);
+	Dados* base = lePadraoDosMetadados(nomeArqBase);
 
-	menu(nomeArq);
+	menuDeOperacoes(base);
 
-	exitAndFree(nomeArq);
+	liberaMemoriaTotal(base);
 	return 0;
 }
-
